@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
-
+from pathlib import Path
 import streamlit as st
 
 
@@ -25,8 +25,8 @@ def clean_text(amount):
 # In[5]:
 
 
-china_lend=pd.read_csv('C:/Users/Bumblebee/Desktop/bluetooth/chinese debt trap all over the world. - projects.csv')
-china_lend_sector = pd.read_csv('C:/Users/Bumblebee/Desktop/bluetooth/chinese debt trap in Africa (sector wise).csv')
+chines_lend_path = Path(__file__).parents[0] /'chinese debt trap all over the world. - projects.csv'
+china_lend_sector_path = Path(__file__).parents[0] /'chinese debt trap in Africa (sector wise).csv'
 
 
 # In[ ]:
@@ -35,8 +35,8 @@ china_lend_sector = pd.read_csv('C:/Users/Bumblebee/Desktop/bluetooth/chinese de
 @st.cache(allow_output_mutation=True)
 def load_data():
     #importing files
-    china_lend=pd.read_csv('C:/Users/Bumblebee/Desktop/bluetooth/chinese debt trap all over the world. - projects.csv')
-    china_lend_sector = pd.read_csv('C:/Users/Bumblebee/Desktop/bluetooth/chinese debt trap in Africa (sector wise).csv')
+    china_lend=pd.read_csv(chines_lend_path)
+    china_lend_sector = pd.read_csv(china_lend_sector_path)
     china_lend['AMOUNT']=china_lend['AMOUNT'].apply(lambda x: clean_text(x))
     china_lend_sector['$ Allocation'] = china_lend_sector['$ Allocation'].apply(lambda x: clean_text(x))
     china_lend['AMOUNT']=china_lend['AMOUNT'].astype(int)
